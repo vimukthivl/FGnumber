@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Input</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        input, select, button { margin: 10px 0; padding: 10px; width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Data Input</h1>
+        <form id="dataForm">
+            <label>File Number:</label>
+            <input type="text" id="fileNumber" placeholder="Enter File Number" required>
+
+            <label>Issued Date:</label>
+            <input type="date" id="issuedDate" required>
+
+            <label>FG Number:</label>
+            <input type="text" id="fgNumber" placeholder="Enter FG Number (e.g., FG123)" required pattern="FG[0-9]+" title="FG Number must start with 'FG' followed by digits">
+
+            <label>Trim Card Number:</label>
+            <input type="text" id="trimCardNumber" placeholder="Enter Trim Card Number" required>
+
+            <label>Mockup Number:</label>
+            <input type="text" id="mockupNumber" placeholder="Enter Mockup Number" required>
+
+            <label>Issued QC Name:</label>
+            <input type="text" id="qcName" placeholder="Enter QC Name" required>
+
+            <label>Package Type:</label>
+            <select id="packageType" required>
+                <option value="Polybag">Polybag</option>
+                <option value="Label">Label</option>
+                <option value="Strap">Strap</option>
+                <option value="Heat Seal">Heat Seal</option>
+            </select>
+
+            <button type="submit">Add Data</button>
+        </form>
+        <button onclick="location.href='index.html'">Back to Home</button>
+    </div>
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileNumber = document.getElementById('fileNumber').value;
+            const issuedDate = document.getElementById('issuedDate').value;
+            const fgNumber = document.getElementById('fgNumber').value;
+            const trimCardNumber = document.getElementById('trimCardNumber').value;
+            const mockupNumber = document.getElementById('mockupNumber').value;
+            const qcName = document.getElementById('qcName').value;
+            const packageType = document.getElementById('packageType').value;
+            console.log('Data Saved:', { fileNumber, issuedDate, fgNumber, trimCardNumber, mockupNumber, qcName, packageType });
+        });
+    </script>
+</body>
+</html>

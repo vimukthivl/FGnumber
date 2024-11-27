@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search FG Data</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        input, button { margin: 10px 0; padding: 10px; width: 100%; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid #ddd; }
+        th, td { padding: 10px; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search FG Data</h1>
+        <label for="searchFileNumber">Search by File Number:</label>
+        <input type="text" id="searchFileNumber" placeholder="Search File Number...">
+        
+        <label for="searchFG">Search by FG Number:</label>
+        <input type="text" id="searchFG" placeholder="Search FG Number...">
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>File Number</th>
+                    <th>Issued Date</th>
+                    <th>FG Number</th>
+                    <th>Trim Card Number</th>
+                    <th>Mockup Number</th>
+                    <th>Issued QC Name</th>
+                    <th>Package Type</th>
+                </tr>
+            </thead>
+            <tbody id="dataTable"></tbody>
+        </table>
+        <button onclick="location.href='index.html'">Back to Home</button>
+    </div>
+    <script>
+        const dataRecords = [
+            { fileNumber: "File001", issuedDate: "2024-11-01", fgNumber: "FG001", trimCardNumber: "TC001", mockupNumber: "MK001", qcName: "John Doe", packageType: "Polybag" },
+            { fileNumber: "File002", issuedDate: "2024-11-02", fgNumber: "FG002", trimCardNumber: "TC002", mockupNumber: "MK002", qcName: "Jane Smith", packageType: "Label" }
+        ];
+        
+        const searchFileNumberInput = document.getElementById('searchFileNumber');
+        const searchFGInput = document.getElementById('searchFG');
+        const dataTable = document.getElementById('dataTable');
+
+        function filterRecords() {
+            const fileNumberQuery = searchFileNumberInput.value.trim().toUpperCase();
+            const fgNumberQuery = searchFGInput.value.trim().toUpperCase();
+            const filteredRecords = dataRecords.filter(record => 
+                (record.fileNumber.includes(fileNumberQuery) || fileNumberQuery === '') &&
+                (record.fgNumber.includes(fgNumberQuery) || fgNumberQuery === '')
+            );
+            renderTable(filteredRecords);
+        }
+
+        function renderTable(records) {
+            dataTable.innerHTML = '';
+            records.forEach(record => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${record.fileNumber}</td>
+                    <td>${record.issuedDate}</td>
+                    <td>${record.fgNumber}</td>
+                    <td>${record.trimCardNumber}</td>
+                    <td>${record.mockupNumber}</td>
+                    <td>${record.qcName}</td>
+                    <td>${record.packageType}</td>
+                `;
+                dataTable.appendChild(row);
+            });
+        }
+
+        searchFileNumberInput.addEventListener('input', filterRecords);
+        searchFGInput.addEventListener('input', filterRecords);
+
+        renderTable(dataRecords);
+    </script>
+</body>
+</html>
